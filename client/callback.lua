@@ -1,3 +1,4 @@
+--Normal Callback
 function TriggerCallbackSync(name, ...)
     local promise = promise.new()
     TriggerCallback(name, function(...)
@@ -13,6 +14,28 @@ function TriggerCallback(name, cb, ...)
 end
 
 RegisterNetEvent(ResourceName .. ":" .. 'TriggerCallback', function(name, ...)
+    if ServerCallbacks[name] then
+        ServerCallbacks[name](...)
+        ServerCallbacks[name] = nil
+    end
+end)
+
+--Latent Callback
+function TriggerLatentCallbackSync(name, bps, ...)
+    local promise = promise.new()
+    TriggerLatentCallback(name, bps, function(...)
+        promise:resolve(...)
+    end, ...)
+    local result = Citizen.Await(promise)
+    return result
+end
+
+function TriggerLatentCallback(name, bps, cb, ...)
+    ServerCallbacks[name] = cb
+    TriggerLatentServerEvent(ResourceName .. ":" .. 'TriggerLatentCallback', name, bps, ...)
+end
+
+RegisterNetEvent(ResourceName .. ":" .. 'TriggerLatentCallback', function(name, ...)
     if ServerCallbacks[name] then
         ServerCallbacks[name](...)
         ServerCallbacks[name] = nil

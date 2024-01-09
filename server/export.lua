@@ -11,8 +11,8 @@ function UTILS_SERVER()
         CreateCallback(name, cb)
     end
 
-    self.TriggerCallback = function(name, source, cb, ...)
-        TriggerCallback(name, source, cb, ...)
+    self.CreateLatentCallback = function(name, cb)
+        CreateLatentCallback(name, cb)
     end
 
     -- Random --
