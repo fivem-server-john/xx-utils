@@ -10,6 +10,14 @@ function UTILS_CLIENT()
         return TriggerCallback(name, cb, ...)
     end
 
+    self.TriggerLatentCallbackSync = function(name, bytesPerSecond, ...)
+        return TriggerLatentCallbackSync(name, bytesPerSecond, ...)
+    end
+
+    self.TriggerLatentCallback = function(name, bytesPerSecond, cb, ...)
+        return TriggerLatentCallback(name, bytesPerSecond, cb, ...)
+    end
+
     -- Random --
     self.RandomInt = function(length)
         return RandomInt(length)
