@@ -1,6 +1,11 @@
 function UTILS_SERVER()
     local self = {}
 
+    -- PLAYER --
+    self.GetPlayerIdentifierOfType = function(source, type)
+        return GetPlayerIdentifierOfType(source, type)
+    end
+
     -- SERVER CALLBACK --
     self.CreateCallback = function(name, cb)
         CreateCallback(name, cb)
